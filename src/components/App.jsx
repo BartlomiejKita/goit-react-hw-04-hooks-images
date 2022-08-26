@@ -113,7 +113,6 @@ export default class App extends Component {
   closeModalWithEsc = event => {
     if (event.code === 'Escape') {
       this.setState({ isModalOpen: false });
-      window.removeEventListener('keydown', this.closeModalWithEsc);
     }
   };
 
@@ -125,8 +124,10 @@ export default class App extends Component {
   };
 
   render() {
-    if (this.state.isModalOpen === true) {
+    if (this.state.isModalOpen) {
       window.addEventListener('keydown', this.closeModalWithEsc);
+    } else {
+      window.removeEventListener('keydown', this.closeModalWithEsc);
     }
 
     const { gallery, isLoading, error, totalHits, largeImg } = this.state;
