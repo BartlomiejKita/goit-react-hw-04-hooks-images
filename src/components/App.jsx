@@ -142,10 +142,8 @@ export default class App extends Component {
         )}
         {isLoading && <Loader />}
         {gallery.length < totalHits && <LoadMore onClick={this.fetchMore} />}
-        {this.state.isModalOpen === true ? (
+        {this.state.isModalOpen && (
           <Modal closeModal={this.closeModal} item={largeImg} />
-        ) : (
-          <></>
         )}
         <ToastContainer autoClose={3000} />
       </Wrapper>
