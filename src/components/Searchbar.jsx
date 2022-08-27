@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { ImSearch } from 'react-icons/im';
 import { Component } from 'react';
 import { toast } from 'react-toastify';
+import PropTypes from 'prop-types';
 
 const Header = styled.header`
   top: 0;
@@ -110,5 +111,9 @@ class Searchbar extends Component {
     );
   }
 }
+
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func,
+};
 
 export default Searchbar;

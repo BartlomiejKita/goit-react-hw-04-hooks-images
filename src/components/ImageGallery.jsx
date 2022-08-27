@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import ImageGalleryItem from './ImageGalleryItem';
 import { nanoid } from 'nanoid';
+import PropTypes from 'prop-types';
 
 const GalleryList = styled.ul`
   display: grid;
@@ -28,6 +29,11 @@ const ImageGallery = ({ items, openModalWindow }) => {
       ))}
     </GalleryList>
   );
+};
+
+ImageGallery.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.object),
+  openModalWindow: PropTypes.func.isRequired,
 };
 
 export default ImageGallery;

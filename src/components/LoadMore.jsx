@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const LoadMoreBtn = styled.button`
   margin: 0 auto;
@@ -30,6 +31,10 @@ const LoadMoreBtn = styled.button`
 
 const LoadMore = ({ onClick }) => {
   return <LoadMoreBtn onClick={onClick}>Load more</LoadMoreBtn>;
+};
+
+LoadMore.propTypes = {
+  onClick: PropTypes.func,
 };
 
 export default LoadMore;

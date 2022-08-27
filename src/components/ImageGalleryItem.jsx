@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const GalleryItem = styled.li`
   border-radius: 2px;
@@ -23,6 +24,12 @@ const ImageGalleryItem = ({ src, alt, largeSrc }) => {
       <Image src={src} alt={alt} data-img={largeSrc} />
     </GalleryItem>
   );
+};
+
+ImageGalleryItem.propTypes = {
+  src: PropTypes.string,
+  alt: PropTypes.string,
+  largeSrc: PropTypes.string,
 };
 
 export default ImageGalleryItem;

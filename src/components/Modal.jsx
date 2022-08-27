@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const Overlay = styled.div`
   position: fixed;
@@ -26,6 +27,11 @@ const Modal = ({ item, closeModal }) => {
       </ModalWindow>
     </Overlay>
   );
+};
+
+Modal.propTypes = {
+  item: PropTypes.string,
+  closeModal: PropTypes.func,
 };
 
 export default Modal;

@@ -6,9 +6,9 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import styled from 'styled-components';
 import galleryApi from 'services/galleryApi';
 import LoadMore from './LoadMore';
-import { Circles } from 'react-loader-spinner';
 import { toast } from 'react-toastify';
 import Modal from './Modal';
+import Loader from './Loader';
 
 const Wrapper = styled.div`
   display: grid;
@@ -22,10 +22,6 @@ const ErrorMsg = styled.p`
   justify-content: center;
   font-weight: bold;
   font-size: 19px;
-`;
-
-const SpinnerWrapper = styled.div`
-  margin: 10px auto;
 `;
 
 const INITIAL_STATE = {
@@ -134,7 +130,7 @@ export default class App extends Component {
 
     return (
       <Wrapper>
-        <Searchbar onSubmit={this.handleFormSubmit}></Searchbar>
+        <Searchbar onSubmit={this.handleFormSubmit} />
         {error && (
           <ErrorMsg>Whoops, something went wrong: {error.message}</ErrorMsg>
         )}
@@ -144,19 +140,7 @@ export default class App extends Component {
             openModalWindow={this.openModalWindow}
           />
         )}
-        {isLoading && (
-          <SpinnerWrapper>
-            <Circles
-              height="100"
-              width="100"
-              color="#3f51b5"
-              ariaLabel="circles-loading"
-              wrapperStyle={{}}
-              wrapperClass=""
-              visible={true}
-            />
-          </SpinnerWrapper>
-        )}
+        {isLoading && <Loader />}
         {gallery.length < totalHits && <LoadMore onClick={this.fetchMore} />}
         {this.state.isModalOpen === true ? (
           <Modal closeModal={this.closeModal} item={largeImg} />
