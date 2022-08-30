@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import ImageGalleryItem from './ImageGalleryItem';
-import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
 
 const GalleryList = styled.ul`
@@ -19,9 +18,9 @@ const GalleryList = styled.ul`
 const ImageGallery = ({ items, openModalWindow }) => {
   return (
     <GalleryList onClick={openModalWindow}>
-      {items.map(({ webformatURL, tags, largeImageURL }) => (
+      {items.map(({ webformatURL, tags, largeImageURL, id }) => (
         <ImageGalleryItem
-          key={nanoid()}
+          key={id}
           src={webformatURL}
           alt={tags}
           largeSrc={largeImageURL}
