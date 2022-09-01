@@ -44,8 +44,8 @@ const App = () => {
       const data = await galleryApi.fetchPics(searchName, page);
       const { hits: newImages, totalHits: totalImages } = data;
       setGallery(gallery => [...gallery, ...newImages]);
-        setTotalHits(totalImages);
-      
+      setTotalHits(totalImages);
+
       if (totalImages === 0) {
         toast.warn(
           'Sorry, there are no images matching your search query. Please try again.'
