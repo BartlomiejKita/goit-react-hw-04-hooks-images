@@ -1,6 +1,6 @@
 import Searchbar from './Searchbar';
 import ImageGallery from './ImageGallery';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import styled from 'styled-components';
@@ -34,25 +34,18 @@ const App = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [largeImg, setLargeImg] = useState(null);
 
-  useEffect(() => {
-    if (!searchName) {
-      return;
-    }
-
-    fetchGallery();
-    // eslint-disable-next-line
-  }, [searchName, page]);
-
-  const fetchGallery = async () => {
+  const fetchGallery = useCallback(async () => {
     setIsLoading(true);
 
     try {
+      if (!searchName) {
+        return;
+      }
       const data = await galleryApi.fetchPics(searchName, page);
       const { hits: newImages, totalHits: totalImages } = data;
-      setGallery([...gallery, ...newImages]);
-      if (totalImages !== totalHits) {
+      setGallery(gallery => [...gallery, ...newImages]);
         setTotalHits(totalImages);
-      }
+      
       if (totalImages === 0) {
         toast.warn(
           'Sorry, there are no images matching your search query. Please try again.'
@@ -72,7 +65,11 @@ const App = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [searchName, page]);
+
+  useEffect(() => {
+    fetchGallery();
+  }, [fetchGallery]);
 
   const fetchMore = () => {
     setPage(page + 1);
