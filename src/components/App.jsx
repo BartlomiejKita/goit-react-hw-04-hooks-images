@@ -44,7 +44,9 @@ const App = () => {
       const data = await galleryApi.fetchPics(searchName, page);
       const { hits: newImages, totalHits: totalImages } = data;
       setGallery(gallery => [...gallery, ...newImages]);
-      setTotalHits(totalImages);
+      // if (totalImages !== totalHits) zapytac!!!!!!!
+        setTotalHits(totalImages);
+      
 
       if (totalImages === 0) {
         toast.warn(
@@ -78,7 +80,7 @@ const App = () => {
   const handleFormSubmit = query => {
     if (query === searchName) {
       toast.info(
-        `You already looked for ${query}. Please type something else!!!`
+        `You have already looked for ${query}. Please type something else!!!`
       );
       return;
     }
