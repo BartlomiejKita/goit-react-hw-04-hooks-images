@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { ImSearch } from 'react-icons/im';
-import { Component } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 
@@ -64,53 +64,46 @@ const Input = styled.input`
   }
 `;
 
-const INITIAL_STATE = {
-  searchName: '',
-};
+const Searchbar = ({ onSubmit }) => {
+  const [query, setQuery] = useState('');
 
-class Searchbar extends Component {
-  state = { ...INITIAL_STATE };
-
-  handleChange = event => {
-    this.setState({ searchName: event.currentTarget.value.toLowerCase() });
+  const handleChange = event => {
+    setQuery(event.currentTarget.value.toLowerCase());
   };
 
-  handleSubmit = event => {
+  const handleSubmit = event => {
     event.preventDefault();
 
-    if (this.state.searchName.trim() === '') {
+    if (query.trim() === '') {
       toast.error('Please type something');
       return;
     }
-    this.props.onSubmit(this.state.searchName);
-
-    this.setState({ ...INITIAL_STATE });
+    onSubmit(query);
+    setQuery('');
   };
 
-  render() {
-    return (
-      <>
-        <Header>
-          <Form onSubmit={this.handleSubmit}>
-            <SearchBtn type="submit">
-              <ImSearch />
-            </SearchBtn>
+  return (
+    <>
+      <Header>
+        <Form onSubmit={handleSubmit}>
+          <SearchBtn type="submit">
+            <ImSearch />
+          </SearchBtn>
 
-            <Input
-              name="searchName"
-              onChange={this.handleChange}
-              value={this.state.searchName}
-              type="text"
-              autoComplete="off"
-              autoFocus
-              placeholder="Search images and photos"
-            />
-          </Form>
-        </Header>
-      </>
-    );
-  }
-}
+          <Input
+            name="searchName"
+            onChange={handleChange}
+            value={query}
+            type="text"
+            autoComplete="off"
+            autoFocus
+            placeholder="Search images and photos"
+          />
+        </Form>
+      </Header>
+    </>
+  );
+};
 
 Searchbar.propTypes = {
   onSubmit: PropTypes.func,
