@@ -40,6 +40,7 @@ const App = () => {
     }
 
     fetchGallery();
+    // eslint-disable-next-line
   }, [searchName, page]);
 
   const fetchGallery = async () => {
